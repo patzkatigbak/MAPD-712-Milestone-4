@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     leftbutton:{
         width: '50%',
         height: 30,
-        backgroundColor: '#4169E1',
+        backgroundColor: '#D35400',
         marginTop: 20,
         borderRadius: 10,
         justifyContent:'center',
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     rightbutton:{
         width: '50%',
         height: 30,
-        backgroundColor: '#4169E1',
+        backgroundColor: '#D35400',
         marginTop: 20,
         borderRadius: 10,
         justifyContent:'center',
