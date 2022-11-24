@@ -107,13 +107,17 @@ export const PatientDetailScreen = ({ route }) => {
                     >
                         <Text style={styles.buttonText}>Basic Information</Text>
                     </TouchableOpacity>
-                   
+
+                </View>
+                {/* <SpliteLine /> */}
+                <View style={{ marginTop: 10 }}>
+                    {flag == 1 ? patientClinicalInfo() : patientBasicInfo()}
                 </View>
                 <SpliteLine />
-                <View style={{marginTop:10}}>
-                    {flag == 1?patientClinicalInfo():patientBasicInfo()}
+                <View style={{backgroundColor: '#EBEBEB', height:110, marginTop:20}}>
+                    <Text style={{ fontSize: 17, fontWeight: 'bold'}}>Symptom:</Text>
+                    <Text style={{ fontSize: 15,marginTop:7}}>Fever, cough, tiredness, sore throat, headache, aches and pains, diarrhoea</Text>
                 </View>
-                <SpliteLine />
             </View>
         </View>
     )
@@ -169,33 +173,33 @@ const styles = StyleSheet.create({
     view_button: {
         flexDirection: "row",
     },
-    leftbutton:{
+    leftbutton: {
         width: '50%',
         height: 30,
         backgroundColor: '#D35400',
         marginTop: 20,
-        borderRadius: 10,
-        justifyContent:'center',
-        alignItems:'center'
+        // borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    rightbutton:{
+    rightbutton: {
         width: '50%',
         height: 30,
         backgroundColor: '#D35400',
         marginTop: 20,
-        borderRadius: 10,
-        justifyContent:'center',
-        alignItems:'center'
+        // borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    buttonText:{
-        justifyContent:'center',
-        alignItems:'center',
-        color:'#FFFFFF',
+    buttonText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#FFFFFF',
         fontSize: 15,
-        fontWeight:'bold'
+        fontWeight: 'bold'
     },
-    image:{
-        height: 80, 
-        width: 80 
+    image: {
+        height: 70,
+        width: 70
     }
 })

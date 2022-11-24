@@ -21,7 +21,7 @@ export const AppointmentDetail = ({ route }) => {
                         <Text style={styles.text_appointmentInfoTitle}>address</Text>
                         <Text style={styles.text_appointmentInfo}>{address}</Text>
                         <SpliteLine />
-                        <Text style={styles.text_appointmentInfoTitle}>appointmentTime</Text>
+                        <Text style={styles.text_appointmentInfoTitle}>Appointment Time</Text>
                         <Text style={styles.text_appointmentInfo}>{appointmentTime}</Text>
                         <SpliteLine />
                         <Text style={styles.text_appointmentInfoTitle}>Phone Number</Text>
@@ -30,12 +30,11 @@ export const AppointmentDetail = ({ route }) => {
                         <Text style={styles.text_appointmentInfoTitle}>Email Address</Text>
                         <Text style={styles.text_appointmentInfo}>{emailAddress}</Text>
                         <SpliteLine />
-                        <Text style={styles.text_appointmentInfoTitle}>patientSymptom</Text>
+                        <Text style={styles.text_appointmentInfoTitle}>Patient Symptom</Text>
                         <Text style={styles.text_appointmentInfo}>{patientSymptom}</Text>
                         <SpliteLine />
                     </View>
                 </View>
-                {/* </ImageBackground> */}
             </View>
         </View>
     )
