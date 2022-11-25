@@ -170,25 +170,25 @@ export const CreatePatientScreen = ({route}) => {
                         <View style={styles.view_content_container}>
                             <View style={styles.view_fieldStyle}>
                                 <Text style={styles.text_style}>Blood Pressure:</Text>
-                                <TextInput placeholder="120/80 mmHg" style={styles.text_inputStyle} onChangeText={text => setBloodPressure(text)}></TextInput>
+                                <TextInput placeholder="ex.120/80 (Number Only)" style={styles.text_inputStyle} onChangeText={text => setBloodPressure(text)}></TextInput>
                             </View>
                         </View>
                         <View style={styles.view_content_container}>
                             <View style={styles.view_fieldStyle}>
                                 <Text style={styles.text_style}>Respiratory Rate:</Text>
-                                <TextInput placeholder="12/minutes." style={styles.text_inputStyle} onChangeText={text => setRespiratoryRate(text)}></TextInput>
+                                <TextInput placeholder="ex.12 (Number Only)" style={styles.text_inputStyle} onChangeText={text => setRespiratoryRate(text)}></TextInput>
                             </View>
                         </View>
                         <View style={styles.view_content_container}>
                             <View style={styles.view_fieldStyle}>
                                 <Text style={styles.text_style}>Blood Oxygen Level:</Text>
-                                <TextInput placeholder="80%" style={styles.text_inputStyle} onChangeText={text => setBloodOxygenLevel(text)}></TextInput>
+                                <TextInput placeholder="ex.80 (Number Only)" style={styles.text_inputStyle} onChangeText={text => setBloodOxygenLevel(text)}></TextInput>
                             </View>
                         </View>
                         <View style={styles.view_content_container}>
                             <View style={styles.view_fieldStyle}>
                                 <Text style={styles.text_style}>Heartbeat Rate</Text>
-                                <TextInput placeholder="80/minutse" style={styles.text_inputStyle} onChangeText={text => setHeartbeatRate(text)}></TextInput>
+                                <TextInput placeholder="ex.80 (Number Only)" style={styles.text_inputStyle} onChangeText={text => setHeartbeatRate(text)}></TextInput>
                             </View>
                         </View>
                         <View style={styles.view_content_container}>

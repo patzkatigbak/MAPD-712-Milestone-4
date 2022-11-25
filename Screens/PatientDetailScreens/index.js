@@ -1,13 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Button} from 'react-native';
 import { SpliteLine } from '../../Components/SpliteLine/index.js'
 
 export const PatientDetailScreen = ({ route }) => {
     const { firstName, lastName, imageUri, sex, address, phoneNumber, emailAddress, emergencyContact,
         emergencyContactPhoneNumber, bedNumber, bloodPressure, respiratoryRate, bloodOxygenLevel, heartbeatRate } = route.params.patient
-
     const [flag, setFlag] = React.useState(1)
-
+    const [patientBloodPressure, setPatientBloodPressure] = React.useState(bloodPressure)
     const button_basicInfo = () => {
         setFlag(0)
     }
@@ -16,6 +15,9 @@ export const PatientDetailScreen = ({ route }) => {
         setFlag(1)
     }
 
+    const button_update_pressed = () => {
+
+    }
 
     const patientBasicInfo = () => {
         return (
@@ -48,8 +50,11 @@ export const PatientDetailScreen = ({ route }) => {
                     <View>
                         <Image source={require('../../assets/bloodPressure.png')} style={styles.image} />
                     </View>
-                    <View style={{ marginLeft: 15 }}>
-                        <Text style={styles.text_clinicalData}>{bloodPressure}</Text>
+                    <View style={styles.textInput_clinicalData}>
+                        <TextInput style={styles.text_clinicalData} onChangeText={(text) => setPatientBloodPressure({text})}  >{bloodPressure}</TextInput>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 20,fontWeight: 'bold',}}> mmHG</Text>
                     </View>
                 </View>
                 <SpliteLine />
@@ -57,8 +62,11 @@ export const PatientDetailScreen = ({ route }) => {
                     <View>
                         <Image source={require('../../assets/respiratoryRate.png')} style={styles.image} />
                     </View>
-                    <View style={{ marginLeft: 15 }}>
-                        <Text style={styles.text_clinicalData}>{respiratoryRate}</Text>
+                    <View style={styles.textInput_clinicalData}>
+                        <TextInput style={styles.text_clinicalData}>{respiratoryRate}</TextInput>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 20,fontWeight: 'bold',}}> /min</Text>
                     </View>
                 </View>
                 <SpliteLine />
@@ -66,8 +74,11 @@ export const PatientDetailScreen = ({ route }) => {
                     <View>
                         <Image source={require('../../assets/bloodOxygenLevel.jpg')} style={styles.image} />
                     </View>
-                    <View style={{ marginLeft: 15 }}>
-                        <Text style={styles.text_clinicalData}>{bloodOxygenLevel}</Text>
+                    <View style={styles.textInput_clinicalData}>
+                        <TextInput style={styles.text_clinicalData}>{bloodOxygenLevel}</TextInput>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 20,fontWeight: 'bold',}}> %</Text>
                     </View>
                 </View>
                 <SpliteLine />
@@ -75,9 +86,28 @@ export const PatientDetailScreen = ({ route }) => {
                     <View>
                         <Image source={require('../../assets/heartbeatRate.jpeg')} style={styles.image} />
                     </View>
-                    <View style={{ marginLeft: 15 }}>
-                        <Text style={styles.text_clinicalData}>{heartbeatRate}</Text>
+                    <View style={styles.textInput_clinicalData}>
+                        <TextInput style={styles.text_clinicalData}>{heartbeatRate}</TextInput>
                     </View>
+                    <View>
+                        <Text style={{ fontSize: 20,fontWeight: 'bold',}}> /min</Text>
+                    </View>
+                </View>
+                <SpliteLine />
+                <View style={{backgroundColor: '#FCCFB2', marginTop:20, borderRadius:10}}>
+                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft:5}}>Symptom:</Text>
+                    <TextInput multiline = {true} style={{ fontSize: 15,marginTop:7, marginLeft:5, height:140}}>
+                        Fever, cough, tiredness, sore throat, headache, aches and pains, diarrhoea
+                    </TextInput>
+                </View>
+                <View>
+                <TouchableOpacity
+                        onPress={button_update_pressed}
+                        style={{width:'100%',height:40,backgroundColor:'#D35400',
+                        justifyContent:'center',alignItems:'center',borderRadius:10,marginTop:10}}
+                    >
+                        <Text style={styles.buttonText}>Update</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -85,6 +115,7 @@ export const PatientDetailScreen = ({ route }) => {
 
     return (
         <View style={styles.view_Container}>
+        {console.log(patientBloodPressure)}
             <View style={styles.view_PatientInfo_Container}>
                 <View style={styles.view_patientIdAndNameInfo}>
                     <View>
@@ -112,11 +143,6 @@ export const PatientDetailScreen = ({ route }) => {
                 {/* <SpliteLine /> */}
                 <View style={{ marginTop: 10 }}>
                     {flag == 1 ? patientClinicalInfo() : patientBasicInfo()}
-                </View>
-                <SpliteLine />
-                <View style={{backgroundColor: '#EBEBEB', height:110, marginTop:20}}>
-                    <Text style={{ fontSize: 17, fontWeight: 'bold'}}>Symptom:</Text>
-                    <Text style={{ fontSize: 15,marginTop:7}}>Fever, cough, tiredness, sore throat, headache, aches and pains, diarrhoea</Text>
                 </View>
             </View>
         </View>
@@ -166,9 +192,16 @@ const styles = StyleSheet.create({
 
     },
     text_clinicalData: {
-        fontSize: 20,
+        fontSize: 17,
         fontWeight: 'bold',
-        marginLeft: 30
+        marginLeft: 30,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#f0f5f5',
+        width:70,
+        height:40,
+        borderRadius:10,
+        padding:5,
     },
     view_button: {
         flexDirection: "row",
@@ -199,7 +232,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     image: {
-        height: 70,
-        width: 70
+        height: 50,
+        width: 50
+    },
+    textInput_clinicalData:{
+        marginLeft: 15,
+        justifyContent:'center',
+        alignItems:'center'
     }
 })
