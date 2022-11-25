@@ -33,7 +33,6 @@ export const RenderPatientAvatar = (props) => {
         <View style={styles.view_patientAvatar}>
             {   
                 patients.map((patient, key) => {
-                    console.log(patient.imageUri)
                 return <TouchableOpacity key={key} style={styles.touchableOpacity} onPress = {()=>navigateToPatientDetailPage(patient)}>
                     <Image source={{ uri: patient.imageUri }} style={{ height: 55, width: 55, borderRadius: 100 }} />
                     <View>

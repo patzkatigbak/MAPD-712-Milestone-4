@@ -26,6 +26,7 @@ export const AppointmentList = (props) => {
         });
         return willFocusSubscription;
     }, [])
+    
     return (
         <View style={styles.view_AppointmentList}>
             {

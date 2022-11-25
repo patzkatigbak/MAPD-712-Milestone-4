@@ -22,10 +22,6 @@ export const CreatePatientScreen = ({route}) => {
     const [imageUri, setImageUri] = React.useState("")
     const [imageType, setImageType] = React.useState("")
     const [imageName, setImageName] = React.useState("")
-    const [bloodPressure, setBloodPressure] = React.useState("")
-    const [respiratoryRate, setRespiratoryRate] = React.useState("")
-    const [bloodOxygenLevel, setBloodOxygenLevel] = React.useState("")
-    const [heartbeatRate, setHeartbeatRate] = React.useState("")
     
     const navigateToHomePage = () => {
         navigation.navigate('NavigationBar')
@@ -68,10 +64,10 @@ export const CreatePatientScreen = ({route}) => {
                 imageUri: imageUri,
                 imageType: imageType,
                 imageName: imageName,
-                bloodPressure:bloodPressure,
-                respiratoryRate:respiratoryRate,
-                bloodOxygenLevel:bloodOxygenLevel,
-                heartbeatRate:heartbeatRate
+                // bloodPressure:bloodPressure,
+                // respiratoryRate:respiratoryRate,
+                // bloodOxygenLevel:bloodOxygenLevel,
+                // heartbeatRate:heartbeatRate
             }
         )
 
@@ -167,7 +163,7 @@ export const CreatePatientScreen = ({route}) => {
                                 <TextInput style={styles.text_inputStyle} onChangeText={text => setEmergencyContactPhoneNumber(text)}></TextInput>
                             </View>
                         </View>
-                        <View style={styles.view_content_container}>
+                        {/* <View style={styles.view_content_container}>
                             <View style={styles.view_fieldStyle}>
                                 <Text style={styles.text_style}>Blood Pressure:</Text>
                                 <TextInput placeholder="ex.120/80 (Number Only)" style={styles.text_inputStyle} onChangeText={text => setBloodPressure(text)}></TextInput>
@@ -190,7 +186,7 @@ export const CreatePatientScreen = ({route}) => {
                                 <Text style={styles.text_style}>Heartbeat Rate</Text>
                                 <TextInput placeholder="ex.80 (Number Only)" style={styles.text_inputStyle} onChangeText={text => setHeartbeatRate(text)}></TextInput>
                             </View>
-                        </View>
+                        </View> */}
                         <View style={styles.view_content_container}>
                             <View style={{ flexDirection: 'row' }}>
                                 <TouchableOpacity
