@@ -19,6 +19,8 @@ export const PatientDetailScreen = ({ route }) => {
     const [heartbeatRate, setHeartbeatRate] = React.useState("")
     const [symptom, setSymptom] = React.useState("")
     const [hasLoaded, setHasLoaded] = React.useState(false)
+    const [bloodPressure_a, setBloodPressure_a] = React.useState(0)
+    const [bloodPressure_b, setBloodPressure_b] = React.useState(0)
 
     const button_basicInfo = () => {
         setFlag(0)
@@ -49,6 +51,8 @@ export const PatientDetailScreen = ({ route }) => {
                     setBloodOxygenLevel(data[data.length-1].bloodOxygenLevel)
                     setHeartbeatRate(data[data.length-1].heartbeatRate)
                     setSymptom(data[data.length-1].symptom)
+                    setBloodPressure_a(data[data.length-1].bloodPressure.split('/')[0])
+                    setBloodPressure_b(data[data.length-1].bloodPressure.split('/')[1])
                 }
                 setHasLoaded(true);  
             })
@@ -60,7 +64,7 @@ export const PatientDetailScreen = ({ route }) => {
         const data = JSON.stringify(
             {
                 patientId: String(_id),
-                bloodPressure: bloodPressure,
+                bloodPressure: bloodPressure_a + "/" + bloodPressure_b,
                 respiratoryRate: respiratoryRate,
                 bloodOxygenLevel: bloodOxygenLevel,
                 heartbeatRate: heartbeatRate,
@@ -95,11 +99,21 @@ export const PatientDetailScreen = ({ route }) => {
                     <Image source={require('../../assets/bloodPressure.png')} style={styles.image} />
                 </View>
                 <View style={styles.textInput_clinicalData}>
-                    <TextInput placeholder="N/A" style={styles.text_clinicalData} onChangeText={(text) => setBloodPressure(text)} >{data.length!=0?data[data.length-1].bloodPressure:""}</TextInput>
+                    <TextInput placeholder="N/A" style={styles.text_clinicalData_alter_1} onChangeText={(text) => setBloodPressure_a(text)} >{bloodPressure_a}</TextInput>
+                </View>
+                <View>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', }}> /</Text>
+                </View>
+                <View>
+                    <TextInput placeholder="N/A" style={styles.text_clinicalData_alter_2} onChangeText={(text) => setBloodPressure_b(text)} >{bloodPressure_b}</TextInput>
                 </View>
                 <View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', }}> mmHG</Text>
                 </View>
+                {bloodPressure_a > 120 ?<View style={{marginLeft:20}} >
+                    <Image source={require('../../assets/alert.png')} style={{height:30, width:30, alignSelf: 'flex-end'}} />
+                </View>:""}
+                
             </View>
             <SpliteLine />
             <View style={styles.view_patientClinicalData}>
@@ -112,6 +126,9 @@ export const PatientDetailScreen = ({ route }) => {
                 <View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', }}> /min</Text>
                 </View>
+                {respiratoryRate > 16 ?<View style={{marginLeft:85}} >
+                    <Image source={require('../../assets/alert.png')} style={{height:30, width:30}} />
+                </View>:""}
             </View>
             <SpliteLine />
             <View style={styles.view_patientClinicalData}>
@@ -124,6 +141,9 @@ export const PatientDetailScreen = ({ route }) => {
                 <View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', }}> %</Text>
                 </View>
+                {bloodOxygenLevel > 110 ?<View style={{marginLeft:105}} >
+                    <Image source={require('../../assets/alert.png')} style={{height:30, width:30}} />
+                </View>:""}
             </View>
             <SpliteLine />
             <View style={styles.view_patientClinicalData}>
@@ -136,11 +156,14 @@ export const PatientDetailScreen = ({ route }) => {
                 <View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', }}> /min</Text>
                 </View>
+                {heartbeatRate > 100 ?<View style={{marginLeft:85}} >
+                    <Image source={require('../../assets/alert.png')} style={{height:30, width:30}} />
+                </View>:""}
             </View>
             <SpliteLine />
             <View style={{ backgroundColor: '#FCCFB2', marginTop: 20, borderRadius: 10 }}>
                 <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5 }}>Symptom:</Text>
-                <TextInput multiline={true} style={{ fontSize: 15, marginTop: 7, marginLeft: 5, height: 140 }}
+                <TextInput multiline={true} style={{ fontSize: 15, marginTop: 7, marginLeft: 5, height: 130 }}
                 onChangeText={(text) => setSymptom(text)}
                 placeholder="No data">          
                 {data.length!=0?data[data.length-1].symptom:""}</TextInput>
@@ -248,6 +271,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 20,
         alignItems: 'center',
+        marginLeft:10,
     },
     text_patientInfoTitle: {
         marginLeft: 7,
@@ -276,6 +300,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#f0f5f5',
         width: 70,
+        height: 40,
+        borderRadius: 10,
+        padding: 5,
+    },
+    text_clinicalData_alter_1:{
+        fontSize: 17,
+        fontWeight: 'bold',
+        marginLeft: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f0f5f5',
+        width: 50,
+        height: 40,
+        borderRadius: 10,
+        padding: 5,
+    },
+    text_clinicalData_alter_2:{
+        fontSize: 17,
+        fontWeight: 'bold',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f0f5f5',
+        width: 50,
         height: 40,
         borderRadius: 10,
         padding: 5,
