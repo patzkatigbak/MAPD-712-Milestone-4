@@ -33,18 +33,33 @@ export const PatientScreen = ({ props }) => {
     }, [])
 
     const button_search_pressed = () => {
-        httpGetRequest(`name?patientName=${searchText}`, 'GET')
-        .then(async res => {
-            if (res.ok) {
-                return await res.json()
-            } else {
-                return Promise.reject(await res.json());
-            }
-        })
-        .then(data => {
-            setPatients(data)
-            setHasLoaded(true)
-        })
+        if(searchText == ""){
+            httpGetRequest(`patients?doctorID=${user._id}`, 'GET')
+            .then(async res => {
+                if (res.ok) {
+                    return await res.json()
+                } else {
+                    return Promise.reject(await res.json());
+                }
+            })
+            .then(data => {
+                setPatients(data)
+                setHasLoaded(true)
+            })
+        }else{
+            httpGetRequest(`name?patientName=${searchText}&doctorID=${user._id}`, 'GET')
+            .then(async res => {
+                if (res.ok) {
+                    return await res.json()
+                } else {
+                    return Promise.reject(await res.json());
+                }
+            })
+            .then(data => {
+                setPatients(data)
+                setHasLoaded(true)
+            })
+        }
     }
 
     const renderPatientList = () => {
