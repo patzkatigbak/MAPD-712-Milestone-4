@@ -1,50 +1,92 @@
-import React, {useContext} from 'react'
-import { StyleSheet, TextInput,Text, View, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useContext } from 'react'
+import { StyleSheet, TextInput, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { PatientInfoCard } from '../../Components/PatientInfoCard/index.js';
 import { useNavigation } from '@react-navigation/native';
 import { httpGetRequest } from '../../utils/http.js'
-import {UserContext} from '../../UserContext.js'
-import {PatientList} from '../../Components/PatientList/index.js'
+import { UserContext } from '../../UserContext.js'
+import { PatientList } from '../../Components/PatientList/index.js'
 
 
-export const PatientScreen = ({props}) => {
+export const PatientScreen = ({ props }) => {
     const navigation = useNavigation();
-    const [patients,setPatients] = React.useState([])
+    const [patients, setPatients] = React.useState([])
+    const [hasLoaded, setHasLoaded] = React.useState(false)
+    const [searchText, setSearchText] = React.useState("")
+    const { user } = useContext(UserContext)
+
+    React.useEffect(() => {
+        const willFocusSubscription = navigation.addListener('focus', () => {
+            httpGetRequest(`patients?doctorID=${user._id}`, 'GET')
+                .then(async res => {
+                    if (res.ok) {
+                        return await res.json()
+                    } else {
+                        return Promise.reject(await res.json());
+                    }
+                })
+                .then(data => {
+                    setPatients(data)
+                    setHasLoaded(true)
+                })
+        });
+        return willFocusSubscription;
+    }, [])
+
+    const button_search_pressed = () => {
+        httpGetRequest(`name?patientName=${searchText}`, 'GET')
+        .then(async res => {
+            if (res.ok) {
+                return await res.json()
+            } else {
+                return Promise.reject(await res.json());
+            }
+        })
+        .then(data => {
+            setPatients(data)
+            setHasLoaded(true)
+        })
+    }
 
     const renderPatientList = () => {
         return (
-            <PatientList/>
+            <PatientList />
         )
     }
 
     return (
         <View style={styles.view_container}>
             {/* <ImageBackground source={require('../../assets/background.jpg')} resizeMode="cover" style={{ flex: 1 }}> */}
-                <View>
-                    <View style={styles.view_Header}>
-                        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#000000' }}>Patient {'\n'}Search / List</Text>
-                    </View>
-                    <View style={styles.container_view_PatientList}>
-                        <View style={styles.view_PatientList}>
-                            
-                            <TextInput 
-                            style={styles.textinput} 
-                            placeholder="Search Patient">
-                            </TextInput>
+            <View>
+                <View style={styles.view_Header}>
+                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#000000' }}>Patient {'\n'}Search / List</Text>
+                </View>
+                <View style={styles.container_view_PatientList}>
+                    <View style={styles.view_PatientList}>
 
-                            
-                            <TouchableOpacity
-                                style={styles.touchableOpacity_PatientList}>
-                                <Text style={{ color: '#FFFFFF' }}>Search</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TextInput
+                            style={styles.textinput}
+                            placeholder="Search Patient"
+                            onChangeText={text => setSearchText(text)}
+                            >
+                        </TextInput>
+
+                        <TouchableOpacity
+                            style={styles.touchableOpacity_PatientList}
+                            onPress={button_search_pressed}
+                            >
+                            <Text style={{ color: '#FFFFFF' }}>Search</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.view_ResultList}>
-                    <ScrollView>
-                        {renderPatientList()}
-                    </ScrollView>
-                </View>
+            </View>
+            <View style={styles.view_ResultList}>
+                <ScrollView>
+                    {/* {renderPatientList()} */}
+                    {hasLoaded ? patients.map((patient, key) => {
+                        return (<PatientInfoCard key={key} patient={patient} />)
+                    }):""}
+                </ScrollView>
+            </View>
             {/* </ImageBackground> */}
         </View>
     )
@@ -53,7 +95,7 @@ export const PatientScreen = ({props}) => {
 const styles = StyleSheet.create({
     view_container: {
         flex: 1,
-        backgroundColor:'#FFFFFF'
+        backgroundColor: '#FFFFFF'
     },
     view_Header: {
         width: '90%',
@@ -90,11 +132,11 @@ const styles = StyleSheet.create({
         marginLeft: '5%',
         height: '70%',
     },
-    textinput:{
+    textinput: {
         height: 40,
-        width:180,
+        width: 180,
         fontSize: 20,
         marginBottom: 0,
-        marginLeft:10
+        marginLeft: 10
     },
 })
