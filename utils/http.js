@@ -1,5 +1,5 @@
 export const httpPostRequest = async (endpoint, method, data) => {
-    fetch('http://127.0.0.1:5000/'+endpoint, {
+    fetch('http://127.0.0.1:2000/'+endpoint, {
         method: method,
         headers: {
             'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ export const httpPostRequest = async (endpoint, method, data) => {
 
 export const httpGetRequest = (endpoint, method) => {
     //console.log(endpoint)
-    return fetch('http://127.0.0.1:5000/'+endpoint, {
+    return fetch('http://127.0.0.1:2000/'+endpoint, {
         method: method,
         headers: {
             'Content-Type': 'application/json'
